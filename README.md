@@ -1,2 +1,2 @@
-#  ASP.NET WebApi Geberate ShortLink#
+#  ASP.NET WebApi Generate ShortLink
 
