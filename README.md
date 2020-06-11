@@ -1,9 +1,7 @@
 #  ASP.NET WebApi Generate ShortLink
- این پروژه به صورت Code First  نوشته شده است 
- لذا از Migartion:
- change_db 
- استفاده نمایید
- از DI 
- Ninject استفاده شده است
- 
 
+ 1-Code First(ef)    
+ 2-use migration ( change_db)
+ 3-add-migartion change_db
+ 4- update-database
+ 5- use DI (Ninject)
