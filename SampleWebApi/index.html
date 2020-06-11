@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link href="Css/bootstrap.min.css" rel="stylesheet" />
+    <link href="Css/bootstrap-rtl.min.css" rel="stylesheet" />
+    <title></title>
+</head>
+<body>
+
+    <div class="container">
+        <div class="py-5 text-center">
+           
+            <h2>فرم ایجاد لینک کوتاه</h2>
+            <p class="lead">ایجاد و  دریافت لینک کوتاه</p>
+        </div>
+
+        <div class="row">
+            
+            <div class="col-md-12 order-md-1 mb-4">
+                <h4 class="mb-3"></h4>
+                <form class="needs-validation" novalidate="">
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label for="Link">لینک مورد نظر (لطفا لینک مورد نظر را جهت تولید لینک کوتاه وارد نمایید)</label>
+                            <input type="text" class="form-control" id="Link" placeholder="" value="" required="">
+
+
+                        </div>
+
+
+
+                    </div>
+                    <div class="row" style="margin-top:5px;">
+                        <div class="col text-center">
+                            <input type="button" class="btn btn-primary" value="ایجاد لینک کوتاه" onclick="CreateLink();" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label for="Link">پیدا کردن لینک (لطفا آدرس لینک کوتاه را وارد نمایید.) </label>
+                            <input type="text" class="form-control" id="shortLink" placeholder="" value="" required="">
+
+
+                        </div>
+
+
+                    </div>
+                    <div class="row" style="margin-top:5px;">
+                        <div class="col text-center">
+                            <input type="button" class="btn btn-primary" value="دسنرسی به صفحه با لینک کوتاه" onclick="getLink();" />
+                        </div>
+                    </div>
+
+
+
+                </form>
+                <div class="alert alert-info" style="margin-top:5px;">
+                    <p id="Message"></p>
+                </div>
+            </div>
+        </div>
+
+        <footer class="my-5 pt-5 text-muted text-center text-small">
+            <p class="mb-1">©2020 محمد جعفری فر</p>
+           
+        </footer>
+    </div>
+
+    
+    <div>
+    
+
+    </div>
+    <script src="Scripts/jquery-3.3.1.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+
+    <script>
+        var uri = 'api/GenerateLink/CreateShortLink';
+        function CreateLink() {
+
+            var url = $('#Link').val();
+
+
+            $.ajax({
+                url: uri + '?url=' + url,
+                type: 'POST',
+                dataType: 'json',
+                success: function (data, textStatus, xhr) {
+
+                    if (data.success == false) {
+                       
+                        alert(data.Message);
+                    }
+                    else {
+                        alert(data.Message);
+                      
+                        $("#Message").text('لینک  کوتاه: '+data.shortLink);
+                        $("#Link").val("");
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log('Error in Operation');
+                }
+            });
+
+
+
+        }
+
+        function getLink() {
+            var shortLink = $('#shortLink').val();
+            var uriShortLink = 'api/GenerateLink/GetWithShortLink';
+            $.getJSON(uriShortLink + '?shortLink=' + shortLink)
+                .done(function (data) {
+                    if (data.success == false) {
+                        alert(data.Message);
+                    }
+                    else { 
+                        window.open(data.Url, "_blank");
+                    }
+                })
+                .fail(function (jqXHR, textStatus, err) {
+                    alert('Error: ' + err);
+                });
+        }
+
+    </script>
+</body>
+</html>
