@@ -30,6 +30,11 @@ namespace SampleWebApi.Controllers
 
 
         #region ایجاد لینک  کوتاه
+        /// <summary>
+        /// متد ایجاد لینک کوتاه
+        /// </summary>
+        /// <param name="url">آدرس لینک</param>
+        /// <returns></returns>
         [HttpPost]
 
         public IHttpActionResult CreateShortLink(string url)
@@ -69,6 +74,10 @@ namespace SampleWebApi.Controllers
             }
          
         }
+        /// <summary>
+        /// متد ایجاد توکن به منظور استفاده در لینک کوتاه
+        /// </summary>
+        /// <returns></returns>
         private string GenerateToken()
         {
             string urlsafe = string.Empty;
@@ -83,6 +92,12 @@ namespace SampleWebApi.Controllers
         #endregion
 
         #region دریافت لینک با استفاده از لینک کوتاه
+
+        /// <summary>
+        /// دریافت لینک اصلی از طریق لینک کوتاه
+        /// </summary>
+        /// <param name="shortLink">لینک کوتاه</param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IHttpActionResult> GetWithShortLink(string shortLink)
         {

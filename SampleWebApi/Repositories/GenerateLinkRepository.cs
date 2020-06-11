@@ -15,33 +15,47 @@ namespace SampleWebApi.Repositories
         {
     
         }
+        #region بازگرداندن مدل مربوط به لینک کوتاه
+        /// <summary>
+        /// به منظور کلیک هر بار  باید به صورت اسنکرون نوشته شود
+        /// </summary>
+        /// <param name="shortLink"> لینک کوتاه</param>
+        /// <returns></returns>
 
-        //به منظور کلیک هر بار  باید به صورت اسنکرون نوشته شود
         public async Task<GenerateLinkEntity> GetWithShortLink(string shortLink)
         {
-            try {
+            try
+            {
                 if (_applicationDbContext.GenerateLink.Any(s => s.ShortenedURL == shortLink))
                 {
-                 
-                    var tempModel =_applicationDbContext.GenerateLink.FirstOrDefault(x => x.ShortenedURL == shortLink);
-                    tempModel.Clicked = tempModel.Clicked+1;
-                  
+                    //به روزرسانی به منظور کلیک لینک
+                    var tempModel = _applicationDbContext.GenerateLink.FirstOrDefault(x => x.ShortenedURL == shortLink);
+                    tempModel.Clicked = tempModel.Clicked + 1;
+
                     _applicationDbContext.Entry(tempModel).State = EntityState.Modified;
 
                     await _applicationDbContext.SaveChangesAsync();
                     return tempModel;
                 }
-                else {
+                else
+                {
                     return null;
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 ///استفاده از لاگر 
                 return null;
             }
         }
+        #endregion
 
+        #region ایجاد لینک کوتاه
+        /// <summary>
+        /// ایجاد لینک کوتاه با استفاده از ورود ی
+        /// </summary>
+        /// <param name="toAdd"> اینتیتی لینک کوتاه </param>
+        /// <returns></returns>
         public bool Add(GenerateLinkEntity toAdd)
         {
 
@@ -56,8 +70,9 @@ namespace SampleWebApi.Repositories
                 ///استفاده از لاگر
                 return false;
             }
-        }
+        } 
+        #endregion
 
-      
+
     }
 }

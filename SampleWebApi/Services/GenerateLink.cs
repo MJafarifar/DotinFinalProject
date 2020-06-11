@@ -4,6 +4,11 @@ namespace SampleWebApi.Services
 {
     public class GenerateLink : IGenerateLink
     {
+        /// <summary>
+        /// پیاده سازی اینترفیس اینتیتی به مدل
+        /// </summary>
+        /// <param name="generateLinkEntity"></param>
+        /// <returns></returns>
         public GenerateLinkDto MapToDto(GenerateLinkEntity generateLinkEntity)
         {
             return new GenerateLinkDto()
@@ -16,7 +21,11 @@ namespace SampleWebApi.Services
                 Token = generateLinkEntity.Token
             };
         }
-
+        /// <summary>
+        /// پیاده سازی تبدیل مدل به اینتیتی
+        /// </summary>
+        /// <param name="generateLinkDto"></param>
+        /// <returns></returns>
         public GenerateLinkEntity MapToEntity(GenerateLinkDto generateLinkDto)
         {
             return new GenerateLinkEntity()
